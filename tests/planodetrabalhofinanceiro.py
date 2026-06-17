@@ -21,29 +21,29 @@ def test_plano_de_trabalho_financeiro(page: Page) -> None:
     login_page.should_be_logged_in()
 
     plano_page.abrir_cadastro()
-    plano_page.preencher_dados_basicos(
+    plano_page.projeto.preencher_dados_basicos(
         tipo_projeto="Pesquisa",
         nome_projeto="teste",
         opcao_projeto=re.compile(r"PI09224-2026 - Avalia"),
         subtitulo="teste",
         arquivo=TEST_FILE,
     )
-    plano_page.abrir_aba_coordenador()
-    plano_page.preencher_aba_aprovacao(
+    plano_page.projeto.abrir_aba_coordenador()
+    plano_page.aprovacao.preencher(
         unidade="cercomp",
         opcao_unidade="CERCOMP - CENTRO DE RECURSOS",
         responsavel="lauro",
         opcao_responsavel=re.compile(r"LAURO RAMON GOMIDES"),
         arquivo=TEST_FILE,
     )
-    plano_page.preencher_aba_descricao(
+    plano_page.descricao.preencher(
         banco="Banco do Brasil",
         valor_disponibilizado="100,00",
     )
-    plano_page.preencher_aba_cronograma(
+    plano_page.cronograma.preencher(
         etapa="2",
         descricao="etapa 2",
         quantidade="1",
     )
 
-    plano_page.should_have_quantidade("1")
+    plano_page.cronograma.should_have_quantidade("1")
