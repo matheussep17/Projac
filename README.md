@@ -1,4 +1,4 @@
-# Playwright Python Project
+# Projac
 
 Projeto inicial de automacao com Playwright em Python.
 
@@ -31,4 +31,3 @@ pytest --headed
 ```powershell
 playwright codegen https://example.com
 ```
-
