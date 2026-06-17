@@ -17,13 +17,17 @@ from pages.plano_trabalho_financeiro_projeto_page import (
 class PlanoTrabalhoFinanceiroPage:
     def __init__(self, page: Page) -> None:
         self.page = page
+        self.menu_plano_trabalho = page.locator("span").filter(
+            has_text="Plano de Trabalho Financeiro"
+        )
+        self.cadastrar_plano_card = page.locator("span.card-nome").filter(
+            has_text="Cadastrar Plano de Trabalho Financeiro"
+        )
         self.projeto = PlanoTrabalhoFinanceiroProjetoPage(page)
         self.aprovacao = PlanoTrabalhoFinanceiroAprovacaoPage(page)
         self.descricao = PlanoTrabalhoFinanceiroDescricaoPage(page)
         self.cronograma = PlanoTrabalhoFinanceiroCronogramaPage(page)
 
     def abrir_cadastro(self) -> None:
-        self.page.locator("span").filter(has_text="Plano de Trabalho Financeiro").click()
-        self.page.locator("span.card-nome").filter(
-            has_text="Cadastrar Plano de Trabalho Financeiro"
-        ).click()
+        self.menu_plano_trabalho.click()
+        self.cadastrar_plano_card.click()

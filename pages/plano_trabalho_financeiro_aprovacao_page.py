@@ -1,15 +1,23 @@
 import re
 from pathlib import Path
 
+from playwright.sync_api import Page
+
 from pages.base_page import BasePage
 
 
 class PlanoTrabalhoFinanceiroAprovacaoPage(BasePage):
-    def abrir(self) -> None:
-        self.page.get_by_role(
+    def __init__(self, page: Page) -> None:
+        super().__init__(page)
+        self.aprovacao_tab = page.get_by_role(
             "tab",
             name=re.compile(r"Dados da Aprova", re.I),
-        ).click()
+        )
+        self.unidade_field_name = re.compile(r"Unidade de aprova", re.I)
+        self.responsavel_field_name = re.compile(r"Respons.*vel pela aprova", re.I)
+
+    def abrir(self) -> None:
+        self.aprovacao_tab.click()
 
     def preencher(
         self,
@@ -21,12 +29,12 @@ class PlanoTrabalhoFinanceiroAprovacaoPage(BasePage):
     ) -> None:
         self.abrir()
         self.fill_autocomplete(
-            re.compile(r"Unidade de aprova", re.I),
+            self.unidade_field_name,
             unidade,
             opcao_unidade,
         )
         self.fill_autocomplete(
-            re.compile(r"Respons.*vel pela aprova", re.I),
+            self.responsavel_field_name,
             responsavel,
             opcao_responsavel,
         )
